@@ -1,11 +1,11 @@
 $(document).ready(function() {
     $.ajax({
-        url: 'https://g40a375a88f472a-db202111090751.adb.ca-montreal-1.oraclecloudapps.com/ords/admin/open-api-catalog/client/',
+        url: 'https://g40a375a88f472a-db202111090751.adb.ca-montreal-1.oraclecloudapps.com/ords/admin/client/client',
         method: 'GET',
         datatype: 'JSON',
         success: function(data) {
             console.log(data);
-            $('#cubicles-table').dataTable({
+            $('#clients-table').dataTable({
                 data: data.items,
                 columns: [
                     { data: 'id' },
@@ -30,7 +30,7 @@ function saveInfo() {
     };
     let dataToSend = JSON.stringify(myData);
     $.ajax({
-        url: 'https://g40a375a88f472a-db202111090751.adb.ca-montreal-1.oraclecloudapps.com/ords/admin/open-api-catalog/client/',
+        url: 'https://g40a375a88f472a-db202111090751.adb.ca-montreal-1.oraclecloudapps.com/ords/admin/client/client',
         type: 'POST',
         data: myData,
         datatype: 'JSON',
@@ -56,7 +56,7 @@ function updateInfo() {
     };
     let dataToSend = JSON.stringify(myData);
     $.ajax({
-        url: 'https://g40a375a88f472a-db202111090751.adb.ca-montreal-1.oraclecloudapps.com/ords/admin/open-api-catalog/client/',
+        url: 'https://g40a375a88f472a-db202111090751.adb.ca-montreal-1.oraclecloudapps.com/ords/admin/client/client',
         type: 'PUT',
         contentType: 'application/JSON',
         data: dataToSend,
@@ -79,7 +79,7 @@ function deleteInfo(id) {
     };
     let dataToSend = JSON.stringify(myData);
     $.ajax({
-        url: 'https://g40a375a88f472a-db202111090751.adb.ca-montreal-1.oraclecloudapps.com/ords/admin/open-api-catalog/client/',
+        url: 'https://g40a375a88f472a-db202111090751.adb.ca-montreal-1.oraclecloudapps.com/ords/admin/client/client',
         type: 'DELETE',
         contentType: 'application/JSON',
         data: dataToSend,
@@ -95,18 +95,16 @@ function deleteInfo(id) {
 $(document).on("click", ".btnUpdate", function() {
     let row = $(this).closest("tr");
     let id = parseInt(row.find('td:eq(0)').text()); //capturo el ID		            
-    let target = row.find('td:eq(1)').text();
-    let capacity = row.find('td:eq(2)').text();
-    let category = row.find('td:eq(3)').text();
-    let nom = row.find('td:eq(4)').text();
+    let name = row.find('td:eq(1)').text();
+    let email = row.find('td:eq(2)').text();
+    let age = row.find('td:eq(3)').text();
 
     $("#id").val(id);
-    $("#target").val(target);
-    $("#capacity").val(capacity);
-    $("#category_id").val(category);
-    $("#name").val(nom);
-    $('.modal-title').text('Update cubicle');
-    $('#modalCrud').modal('show');
+    $("#name").val(name);
+    $("#email").val(email);
+    $("#age").val(age);
+    $('.modal-title').text('Update client');
+    $('#modalCrudClient').modal('show');
     const update = document.querySelector("#save");
     update.addEventListener("click", function(event) {
         updateInfo();
@@ -165,12 +163,12 @@ window.onload = function() {
         if (icon.textContent == "visibility") {
             icon.innerHTML = "visibility_off";
             $('#btnSave').show();
-            $('#cubiclesTable').show();
+            $('#clientsTable').show();
 
         } else {
             icon.innerHTML = "visibility";
             $('#btnSave').hide();
-            $('#cubiclesTable').hide();
+            $('#clientsTable').hide();
 
         }
     });
